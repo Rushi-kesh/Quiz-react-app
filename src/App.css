@@ -1,0 +1,59 @@
+.Tabview{
+    justify-content:space-around;
+    background: rgb(48, 51, 226);
+   
+}
+a{
+   width: 33.33%;
+   text-align: center;
+   color: white;
+   
+}
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
+    color: wheat;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    color: rgb(48, 51, 226);
+    
+}
+.Login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    padding: 5%;
+    background-color:rgb(48, 51, 226);
+}
+.form-jqx{
+    margin: auto;
+    
+}
+#label_el_0{
+    color: white;
+}
+
+#label_el_1{
+    color: white;
+}
+#el_2{
+    padding-left:5%;
+    padding-right:5%;
+    color: rgb(48, 51, 226);
+    background: white;
+    border: 1px solid rgb(48, 51, 226);
+    margin: 0%;
+}
+#el_2:hover{
+    padding-left:5%;
+    padding-right:5%;
+    color: white;
+    background: rgb(48, 51, 226);
+    border: 1px solid white;
+    margin: 0%;
+}
+.quiz{
+    
+   height: 100%;
+}
