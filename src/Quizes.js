@@ -30,11 +30,11 @@ export default class Quizes extends Component {
     render() {
 
         return (
-            <div className="quiz">
-                <div style={{ float:"left"}}>
+            <div className="col">
+                <div className="row">
                     <JqxTree width={400} onItemClick={this.onItemClick} source={this.state.data} ></JqxTree>
                 </div>
-                <div style={{ float:"right"}}>
+                <div className="row">
                 {this.state.start?<button>START QUIZ</button>:<h3>Please select category of Quizes</h3>}
                 </div>
             </div>
