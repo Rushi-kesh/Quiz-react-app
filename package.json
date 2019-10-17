@@ -15,10 +15,13 @@
     "bootstrap": "^4.3.1",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",
+    "jquery": "^3.4.1",
     "jqwidgets-scripts": "^8.2.0",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.9.0",
+    "react-icons": "^3.7.0",
+    "react-js-pagination": "^3.0.2",
     "react-router-dom": "^5.1.2",
     "style-loader": "^1.0.0"
   },

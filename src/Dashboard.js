@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
     render() {
         return (
             <div>
-                <JqxTabs  width={"100%"} height={"100%"} onTabclick={this.onTabclick} >
+                <JqxTabs  width={"100%"} onTabclick={this.onTabclick} >
                     <ul style={{ marginLeft: 10 }}>
                         <li>Categories</li>
                         <li>SubCategories</li>
