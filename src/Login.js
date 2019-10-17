@@ -11,7 +11,7 @@ export default class Login extends Component {
             [{
                 bind: 'textBoxValue',
                 type: 'text',
-                label: 'User Name',
+                label: 'Username',
                 labelPosition: 'left',
                 labelWidth: '30%',
                 align: 'left',

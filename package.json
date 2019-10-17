@@ -10,6 +10,8 @@
   "author": "rushi",
   "license": "ISC",
   "dependencies": {
+    "ag-grid-community": "^21.2.2",
+    "ag-grid-react": "^21.2.2",
     "bootstrap": "^4.3.1",
     "css-loader": "^3.2.0",
     "file-loader": "^4.2.0",

@@ -26,10 +26,7 @@ a{
     padding: 5%;
     background-color:rgb(48, 51, 226);
 }
-.form-jqx{
-    margin: auto;
-    
-}
+
 #label_el_0{
     color: white;
 }
@@ -43,7 +40,7 @@ a{
     color: rgb(48, 51, 226);
     background: white;
     border: 1px solid rgb(48, 51, 226);
-    margin: 0%;
+   
 }
 #el_2:hover{
     padding-left:5%;

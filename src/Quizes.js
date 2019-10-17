@@ -30,11 +30,11 @@ export default class Quizes extends Component {
     render() {
 
         return (
-            <div className="col">
-                <div className="row">
+            <div className="row">
+                <div className="col">
                     <JqxTree width={400} onItemClick={this.onItemClick} source={this.state.data} ></JqxTree>
                 </div>
-                <div className="row">
+                <div className="col">
                 {this.state.start?<button>START QUIZ</button>:<h3>Please select category of Quizes</h3>}
                 </div>
             </div>
