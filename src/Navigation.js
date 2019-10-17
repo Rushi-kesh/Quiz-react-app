@@ -3,7 +3,7 @@ import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Login from './Login';
 import Quizes from './Quizes';
-import NavBar from './NavBar'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 export default class Navigation extends Component {
     render() {

@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import JqxInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxinput';
-import JqxDateTimeInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxdatetimeinput';
-import JqxDropDownList from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxdropdownlist';
-import JqxNumberInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnumberinput';
-import JqxTextArea from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtextarea';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material-purple.css';
-import JqxButtonGroup from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxbuttongroup';
-import JqxComboBox from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxcombobox';
+
 /* JQUERY IMPORT FOR AJAX */
 import $ from 'jquery';
 

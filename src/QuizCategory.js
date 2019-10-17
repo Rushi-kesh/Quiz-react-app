@@ -256,11 +256,11 @@ export default class QuizCategory extends Component {
                       className="ag-theme-balham">
                       
                         <div className="search">
-                        <form class="form-inline">
-                        <button className="btn btn-info btn-sm" onClick={this.toggleaddrec}>Add Category</button><input type="hidden"/>
+                        <span className="form-inline">
+                        <button className="btn btn-info btn-sm add-btn" onClick={this.toggleaddrec}>Add Category</button>
                           <input className="form-control form-control-sm ml-4 w-25" ref="searchval" value={this.state.searchtext} onChange={this.handletext} type="text" id="filter-text" placeholder="Search Category" />
                           <button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</button>
-                          </form>
+                          </span>
                         </div>
                         <div style={{height:"200px"}}>
                       <AgGridReact

@@ -61,10 +61,10 @@ export default class QuizEditSubCategory extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <label  >Category Name</label> 
+                                    <label  >SubCategory Name</label> 
                                 </td>
                                 <td>
-                                    <JqxInput ref="Cat" width={180}  height={25} value={this.props.data.category} placeHolder={'Enter First Name'} /> 
+                                    <JqxInput ref="Cat" width={180}  height={25} value={this.props.data.sub_category} placeHolder={'Enter First Name'} /> 
                                 </td>
                             </tr>
                            

@@ -11,7 +11,8 @@ export default class App extends Component {
                 <Router history={browserHistory}>  
                     <Switch>
                         <Route exact path="/" component={Navigation} />
-                        <Route exact path="/dashboard" component={Dashboard} />      
+                        <Route exact path="/dashboard" component={Dashboard} />   
+                        <Route exact path="/quiz" component={Dashboard} />    
                     </Switch>
                 </Router>
             </div>

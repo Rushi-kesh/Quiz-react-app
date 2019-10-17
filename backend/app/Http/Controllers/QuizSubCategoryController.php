@@ -7,11 +7,19 @@ use Illuminate\http\Request;
 class QuizSubCategoryController  
 {  
     //This function is for getting all Sub categories.
+    public function getAllSubCategories()
+    {
+       
+        $_quizSubCategory=new QuizSubCategoryModel;
+        $_result=$_quizSubCategory->getAllSubCategories();
+        return response()->json($_result);
+    }
+    //This function is for getting all Sub categories.
     public function getSubCategories(Request $request)
     {
         $Category_id=$request->input('Category_id');
         $_quizSubCategory=new QuizSubCategoryModel;
-        $_result=$_quizSubCategory->getAllSubCategories($Category_id);
+        $_result=$_quizSubCategory->getSubCategories($Category_id);
         return response()->json($_result);
     }
 

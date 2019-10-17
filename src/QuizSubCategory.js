@@ -7,7 +7,8 @@ import EditData from './QuizEditSubCategory.js';
 import { MdCreate } from 'react-icons/md';
 import Pagination from "react-js-pagination";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import "./main.css";;
+import "./main.css";
+import JqxTree, { ITreeProps } from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtree';
 import JqxNotification from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification';
 import { MdDelete } from 'react-icons/md';
 /* JQUERY IMPORT FOR AJAX */
@@ -19,15 +20,15 @@ export default class QuizSubCategory extends Component {
             columnData: [{
                 headerName: "SubCategoryName", field: "sub_category",sortable:true,checkboxSelection:true
               },,{
-                headerName: "SubCategory Description", field: "sub_category_desciption",sortable:true,checkboxSelection:true
+                headerName: "SubCategory Description", field: "sub_category_desciption",sortable:true
               },{
-                headerName: "Edit", field: "edit",editable:false,width:80,cellRendererFramework: (params)=>{
+                headerName: "Edit", field: "edit",editable:false,width:70,cellRendererFramework: (params)=>{
                   this.setState({editcelldata:params.data})
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.edit}><MdCreate/></a></center>)
                 }
               },{
-                headerName: "Delete",editable:false, field: "delete",width:80,cellRendererFramework: (params)=>{
+                headerName: "Delete",editable:false, field: "delete",width:70,cellRendererFramework: (params)=>{
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.delete}><MdDelete/></a></center>)
                 }
@@ -44,13 +45,14 @@ export default class QuizSubCategory extends Component {
             },
             searchtext:"",
             activepage:1,
-            totalcount:null
+            totalcount:null,
+            data:[]
         }
     }
     
     componentDidMount(){
-
-        this.getData();
+        
+        
         
       }
       onGridReady = params => {
@@ -151,9 +153,9 @@ export default class QuizSubCategory extends Component {
         edittogg=()=>{
           this.setState({toggleedit:!this.state.toggleedit})
         }
-        getData = ()=>{
+        getData = (id)=>{
           $.ajax({
-              url: "http://localhost:8000/quiz-app/V1/admin/quiz/subcategories?Category_id=1",
+              url: "http://localhost:8000/quiz-app/V1/admin/quiz/subcategories?Category_id="+id,
               type: "GET",
               dataType:"json",
               success: function (response) {
@@ -221,12 +223,15 @@ export default class QuizSubCategory extends Component {
         this.gridApi.updateRowData({ remove: [selected]});
         this.gridApi.redrawRows();
     }
+    onItemClick=(e)=>{
+      this.getData(e.args.element.id);
+    }
       render() {
           
           return (
               
               <div className="maindiv">
-  
+                  
                   <JqxNotification ref="addednoti"
                       width={300} position={'bottom-right'} opacity={1} autoOpen={false}
                       autoClose={true} animationOpenDelay={800} autoCloseDelay={3000} template={'success'}>
@@ -251,19 +256,22 @@ export default class QuizSubCategory extends Component {
                 <div className="top">
                   <h1>Categories</h1>
                 </div>
-                
+                <div className="row">
+                  <div className="col">
+                <JqxTree width={400} onItemClick={this.onItemClick} source={this.props.treeData} ></JqxTree></div>
+                <div className="col">
                   {this.state.toggleedit?<EditData data={this.state.editcelldata} edit={this.edittogg} edits={this.edits} getData={this.getData}/>: null}
                  {this.state.toggleadd?<AddCell addnote={this.addData} closenote={this.toggleaddrec} closenotes={this.toggleaddrecs} getData={this.getData} /> : null}
-                  <div style={{width:"48%",float:'right'}}
+                  <div style={{width:"100%",float:'right'}}
                       className="ag-theme-balham">
                       
                         <div className="search">
-                        <form class="form-inline">
+                        <span className="form-inline">
                         <button className="btn btn-info btn-sm" onClick={this.toggleaddrec}>Add SubCategory</button>
                         
                         <input className="form-control form-control-sm ml-4 w-25" ref="searchval" value={this.state.searchtext} onChange={this.handletext} type="text" id="filter-text" placeholder="Search SubCategory" />
                           <button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</button>
-                          </form>
+                          </span>
                         </div>
                         <div style={{height:"200px"}}>
                       <AgGridReact
@@ -290,6 +298,8 @@ export default class QuizSubCategory extends Component {
                         />
                       </div>
                       </div>
+                      </div>
+                    </div>
                   </div>
               </div>
           )

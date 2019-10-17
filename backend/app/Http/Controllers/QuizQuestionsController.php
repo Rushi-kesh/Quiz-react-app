@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\QuizQuestionModel;
 use Illuminate\http\Request;
 
-class QuizQuestionController  
+class QuizQuestionsController  
 {  
     //This function is for getting Question.
     public function getQuestions(Request $request)
