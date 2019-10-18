@@ -16,4 +16,5 @@ $router->get('/quiz-app/V1/admin/quiz/subcategories','QuizSubCategoryController@
 $router->post('/quiz-app/V1/admin/quiz/subcategories/add','QuizSubCategoryController@addSubCategory');
 //--------Quiz Questions APIS----------
 $router->get('/quiz-app/V1/admin/quiz/questions','QuizQuestionsController@getQuestions');
+$router->get('/quiz-app/V1/admin/quiz/allQuestions','QuizQuestionsController@getAllQuestions');
 ?>

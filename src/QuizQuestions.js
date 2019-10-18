@@ -6,9 +6,9 @@ import AddCell from './QuizAddQuestions.js';
 import EditData from './QuizEditQuestions';
 import { MdCreate } from 'react-icons/md';
 import Pagination from "react-js-pagination";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./main.css";
-import JqxTree, { ITreeProps } from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtree';
+import JqxTree from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtree';
 import JqxNotification from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification';
 import { MdDelete } from 'react-icons/md';
 /* JQUERY IMPORT FOR AJAX */
@@ -18,9 +18,9 @@ export default class QuizQuestions extends Component {
         super(props)
         this.state = {
             columnData: [{
-                headerName: "SubCategoryName", field: "sub_category",sortable:true,checkboxSelection:true
+                headerName: "Question", field: "question",sortable:true,checkboxSelection:true
               },,{
-                headerName: "SubCategory Description", field: "sub_category_desciption",sortable:true
+                headerName: "Correct Answer", field: "correct_answer",sortable:true
               },{
                 headerName: "Edit", field: "edit",editable:false,width:70,cellRendererFramework: (params)=>{
                   this.setState({editcelldata:params.data})
@@ -46,21 +46,14 @@ export default class QuizQuestions extends Component {
             searchtext:"",
             activepage:1,
             totalcount:null,
-            data:[{
-                id:1,
-                label:"Technical"
-              },
-              {
-                id:2,
-                label:"TechnicalTD"
-              }
+            data:[
             ]
         }
     }
     
     componentDidMount(){
 
-        this.getData();
+       
         
       }
       onGridReady = params => {
@@ -102,9 +95,6 @@ export default class QuizQuestions extends Component {
             }
             else {
                 this.setState({rowData:response});
-                //this.gridApi.setRowData(response);
-                //this.gridApi.redrawRows();
-               
             }
             
         }.bind(this),
@@ -124,7 +114,7 @@ export default class QuizQuestions extends Component {
       }
       handlePageChange=(pageNumber)=> {
         $.ajax({
-          url: "http://localhost:8000/employees?page="+pageNumber,
+          url: "http://localhost:8000/quiz-app/V1/admin/quiz/allQuestions?Category_id="+this.state.cat_id+"&SubCategory_id="+this.state.subCat_id+"&page="+pageNumber,
           type: "GET",
           dataType:"json",
           success: function (response) {
@@ -161,9 +151,9 @@ export default class QuizQuestions extends Component {
         edittogg=()=>{
           this.setState({toggleedit:!this.state.toggleedit})
         }
-        getData = (id1,id2)=>{
+        getData = ()=>{
           $.ajax({
-              url: "http://localhost:8000/quiz-app/V1/admin/quiz/questions?Category_id="+id1+"&SubCategory_id="+id2,
+              url: "http://localhost:8000/quiz-app/V1/admin/quiz/allQuestions?Category_id="+this.state.cat_id+"&SubCategory_id="+this.state.subCat_id,
               type: "GET",
               dataType:"json",
               success: function (response) {
@@ -173,7 +163,7 @@ export default class QuizQuestions extends Component {
                   }
                   else {
                     
-                      this.setState({rowData:response,
+                      this.setState({rowData:response.data,
                         totalcount:response.total});
                       //this.gridApi.setRowData(response);
                       //this.gridApi.redrawRows();
@@ -234,7 +224,8 @@ export default class QuizQuestions extends Component {
     onItemClick=(e)=>{
         if(e.args.element.id.length==3){
             var ids=e.args.element.id.split('-');
-            this.getData(ids[0],ids[1])
+            this.setState({cat_id:ids[0],subCat_id:ids[1]});
+            this.getData()
         }
     }
       render() {
@@ -265,7 +256,7 @@ export default class QuizQuestions extends Component {
                       </div>
                   </JqxNotification>
                 <div className="top">
-                  <h1>Categories</h1>
+                  <h1>Questions</h1>
                 </div>
                 <div className="row">
                   <div className="col">
@@ -273,12 +264,12 @@ export default class QuizQuestions extends Component {
                 <div className="col">
                   {this.state.toggleedit?<EditData data={this.state.editcelldata} edit={this.edittogg} edits={this.edits} getData={this.getData}/>: null}
                  {this.state.toggleadd?<AddCell addnote={this.addData} closenote={this.toggleaddrec} closenotes={this.toggleaddrecs} getData={this.getData} /> : null}
-                  <div style={{width:"100%",float:'right'}}
+                  <div style={{width:"100%"}}
                       className="ag-theme-balham">
                       
                         <div className="search">
                         <span className="form-inline">
-                        <button className="btn btn-info btn-sm" onClick={this.toggleaddrec}>Add SubCategory</button>
+                        <button className="btn btn-info btn-sm" onClick={this.toggleaddrec}>Add Question</button>
                         
                         <input className="form-control form-control-sm ml-4 w-25" ref="searchval" value={this.state.searchtext} onChange={this.handletext} type="text" id="filter-text" placeholder="Search SubCategory" />
                           <button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</button>

@@ -6,10 +6,14 @@ import JqxTabs from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtabs';
 import QuizQuestions from './QuizQuestions';
 import QuizCategory from './QuizCategory';
 import QuizSubCategory from './QuizSubCategory';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import Form from 'react-bootstrap/Form';
+
 export default class Dashboard extends Component {
     constructor(props) {
         super(props)
-    
+        
         this.state = {
              categoryData:[],
              data:[]
@@ -83,6 +87,16 @@ export default class Dashboard extends Component {
     render() {
         return (
             <div>
+                <Navbar bg="primary" variant="dark">
+                    
+                        <Nav className="mr-auto">
+                        <Navbar.Brand href="/">Home</Navbar.Brand>
+                        </Nav>
+                        <Form inline>
+                            
+                            <Nav.Link href="/">Logout</Nav.Link>
+                        </Form>
+                    </Navbar>
                 <JqxTabs  width={"100%"} scrollable={false}  onTabclick={this.onTabclick} >
                     <ul style={{ marginLeft: 10 }}>
                         <li>Categories</li>
