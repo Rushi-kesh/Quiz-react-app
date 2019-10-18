@@ -139,24 +139,6 @@ body {
 }
 }
 
-.fancy-btn {
-    border: 2px solid rgb(48, 51, 226);
-    border-radius: 0;
-    background-color: rgb(48, 51, 226);
-    color: #fff;
-    display: inline-block;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 14px 75px;
-    margin: 0 auto;
-    text-transform: uppercase;
-    transition: color .2s ease, background-color .2s ease;
-}
-
-.fancy-btn:hover {
-    background-color: #fff;
-    color: #0b0e21;
-}
 
 
 
@@ -170,6 +152,7 @@ body {
     background-color: rgba(0,0,0,0.5);
     z-index: 1;
     display: flex;
+    padding-left: 5%;;
     justify-content: center;
     align-items: center;
 }
@@ -178,6 +161,7 @@ body {
     text-align: center;
     background-color: #fff;
     border-radius: 10px;
+    
     overflow: hidden;
 }
 

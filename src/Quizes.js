@@ -30,12 +30,7 @@ export default class Quizes extends Component {
                 }
                 else {
                     
-                    this.setState({data:response});
-                    //var res=JSON.parse(response[0])
-                    
-                    //this.gridApi.setRowData(response);
-                    //this.gridApi.redrawRows();
-                   
+                    this.setState({data:response});  
                 }
                 
             }.bind(this),
@@ -49,6 +44,10 @@ export default class Quizes extends Component {
         if(e.args.element.id.length==3){
             this.setState({id:e.args.element.id})
             this.setState({start:true})
+            this.setState({text:e.args.element.innerText});
+        }
+        else{
+            this.setState({start:false})
         }
         
       }
@@ -65,7 +64,7 @@ export default class Quizes extends Component {
                 {this.state.redirect?
                     <Redirect to={{
                         pathname: '/quiz',
-                        state: { category_id: this.state.category_id,subcategory_id:this.state.subcategory_id }
+                        state: { category_id: this.state.category_id,subcategory_id:this.state.subcategory_id, text:this.state.text }
                     }}
                     />:null}
             <div className="row">

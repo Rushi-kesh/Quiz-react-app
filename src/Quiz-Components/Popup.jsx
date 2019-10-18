@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import {Redirect} from 'react-router-dom';
 class Popup extends Component {
     
     constructor(props) {
@@ -8,8 +9,9 @@ class Popup extends Component {
         this.state = {
             time: 'start',
             title: 'Quiz',
-            text: 'This is a QUIZ based on <br /><br />',
-            buttonText: 'Start the quiz' 
+            text: 'This is a QUIZ based on '+this.props.text+' <br /><br />',
+            buttonText: 'Start the quiz',
+            back:false
         };
         
         this.popupHandle = this.popupHandle.bind(this);
@@ -39,7 +41,9 @@ class Popup extends Component {
             '</strong> questions right.<br />'
         })
     }
-
+    goBack=()=>{
+        this.setState({back:true})
+    }
     
     render() {
        
@@ -50,6 +54,7 @@ class Popup extends Component {
         return (
             
                 <div className="popup-container" style={style}>
+                    {this.state.back?<Redirect to='/' />:null}
                     <div className="container">
                         <div className="ml-5 col-md-10 col-10">
                             <div className="popup">
@@ -58,6 +63,7 @@ class Popup extends Component {
                                 <p dangerouslySetInnerHTML={{__html: (text)}}></p>
                                 <span onClick={this.popupHandle}>
                                 <Button className="btn-info">{buttonText}</Button>
+                                <Button onClick={this.goBack} className="btn-warning">Go back</Button>
                                 </span>
                                 <hr/>
                             </div>

@@ -23,7 +23,7 @@ export default class QuizStart extends Component {
         }
     }
     componentDidMount(){
-        console.log("sdbsakjbhaskdbsd")
+        
         var category_id=this.props.location.state.category_id;
         var subcategory_id=this.props.location.state.subcategory_id;
         
@@ -54,7 +54,7 @@ export default class QuizStart extends Component {
         });
     }
     insertData=(count)=> {
-        console.log(this.state.data);
+       
         this.setState({
             question: this.state.data[count].question,
             answers: [  this.state.data[count].answers[0], 
@@ -99,7 +99,7 @@ export default class QuizStart extends Component {
         });
     }
     render() {
-        {console.log(this.state)}
+      
         let { count, total, question, answers, correct, showButton, questionAnswered, displayPopup, score} = this.state
         return (
             <div>
@@ -115,6 +115,7 @@ export default class QuizStart extends Component {
                             score={score} 
                             total={total} 
                             startQuiz={this.handleStartQuiz}
+                            text={this.props.location.state.text}
                         />
                         
                         <div className="row">

@@ -145,104 +145,10 @@ export default class QuizAddSubCategory extends Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <label  >First Name</label> 
+                                    <label  >Sub Category Name</label> 
                                 </td>
                                 <td>
                                     <JqxInput ref="Fname" width={180}  height={25} placeHolder={'Enter First Name'} /> 
-                                </td>
-                                <td>
-                                    <label  >Last Name</label> 
-                                </td>
-                                <td>
-                                    <JqxInput ref="Lname" width={180}  height={25} placeHolder={'Enter Last Name'} /> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label  >Date of Birth</label> 
-                                </td>
-                                <td>
-                                    <JqxDateTimeInput ref="DOB" width={180} height={25} max={new Date()}/>
-                                </td>
-                                <td>
-                                    <label  >Email</label> 
-                                </td>
-                                <td>
-                                <JqxInput ref="email" width={180}  height={25} placeHolder={'Enter Email ID'} /> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label  >Gender</label> 
-                                </td>
-                                <td>
-                                    <JqxButtonGroup ref="Gender" mode={'radio'}>
-                                        <button  id='Male' value='Male'></button>
-                                        <button  id='Female' value='Female'></button>
-                                        <button  id='Other' value='Other'></button>
-                                    </JqxButtonGroup> 
-                                </td>
-                                <td>
-                                    <label  >Address</label> 
-                                </td>
-                                <td>
-                                    <JqxTextArea ref="Address" width={180} height={50} placeHolder={'Enter Address'} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Language's
-                                </td>
-                                <td>
-                                    <JqxComboBox ref='languages' style={{ marginTop: 5 }} width={180} height={25} source={this.state.Languages} multiSelect={true} dropDownHeight={130} selectedIndex={0}/>
-                                </td>
-                                <td>
-                                    Programming Language's
-                                </td>
-                                <td>
-                                    <JqxComboBox ref='planguages' style={{ marginTop: 5 }} width={180} height={25} checkboxes={true} source={this.state.PLanguages} multiSelect={true} dropDownHeight={130} selectedIndex={0}/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label  >Marital Status</label> 
-                                </td>
-                                <td>
-                                    <JqxDropDownList ref="Mstatus" width={180}  source={this.state.statusm} selectedIndex={1} />
-                                </td>
-                                <td>
-                                    <label  >Experience(in Months)</label> 
-                                </td>
-                                <td>
-                                    <JqxNumberInput ref="Exp" width={180} height={25} textAlign={'left'} inputMode={'simple'} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label  >Aadhar Card</label> 
-                                </td>
-                                <td>
-                                    <JqxInput ref="Aadhar" width={180}  height={25} placeHolder={'Enter Aadhar Card number'} /> 
-                                </td>
-                                <td>
-                                    <label  >PAN Card</label> 
-                                </td>
-                                <td>
-                                <JqxInput ref="Pcard" width={180}  height={25} placeHolder={'Enter PAN Card number'} />   
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label  >Current Location</label> 
-                                </td>
-                                <td>
-                                    <JqxInput ref="Loc" width={180}  height={25} placeHolder={'Enter Current Location'} /> 
-                                </td>
-                                <td>
-                                    <label  >Pin Code</label> 
-                                </td>
-                                <td>
-                                    <JqxInput ref="Pincode" width={180}  height={25} placeHolder={'Enter Pincode'} />   
                                 </td>
                             </tr>
                         </tbody>

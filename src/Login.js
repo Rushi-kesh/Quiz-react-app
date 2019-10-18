@@ -42,8 +42,9 @@ export default class Login extends Component {
         }
     }
     onButtonClick=(e)=>{
-        this.setState({status:true})
-        console.log(e)
+        //this.setState({status:true})
+        console.log(this.refs.myform.getComponentByName('submitButton'))
+        
     }
     render() {
         
@@ -53,7 +54,7 @@ export default class Login extends Component {
             <div className="Login">
                 <h3 style={{color:'white'}}>Admin Login</h3>
                 <div className="form-jqx">
-                <JqxForm onButtonClick={this.onButtonClick} style={{ width: "100%" }}
+                <JqxForm ref="myform" onFormDataChange onButtonClick={this.onButtonClick} style={{ width: "100%" }}
                     template={this.state.template}  backgroundColor={'rgb(48, 51, 226)'}
                 />
                 </div>
