@@ -16,9 +16,7 @@ export default class Navigation extends Component {
                     <Tab eventKey="quiz" title="Quizes">
                        <Quizes />
                     </Tab>
-                    <Tab eventKey="leaderboard" title="Leaderboard">
-                      <h1>Hii all</h1>
-                    </Tab>
+                    
                 </Tabs>
             </div>
         )

@@ -6,7 +6,9 @@ import './styles.css'
 import $ from 'jquery';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
+import JqxLoader from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxloader';
 export default class QuizStart extends Component {
     constructor(props) {
         super(props)
@@ -26,7 +28,7 @@ export default class QuizStart extends Component {
         
         var category_id=this.props.location.state.category_id;
         var subcategory_id=this.props.location.state.subcategory_id;
-        
+        this.refs.loader.open();
          this.getQuizData(category_id,subcategory_id);
          
         
@@ -39,13 +41,16 @@ export default class QuizStart extends Component {
             dataType:"json",
             success: function (response) {
               
-                if(response.code == "204") {
+                if(response ==[]) {
                   this.setState({data:[]});
+                  this.setState({flag:false})
+                    this.refs.loader.close();
                 }
                 else {
                     this.setState({data:response,total:response.length});
                     this.insertData(this.state.count);
                     this.setState({flag:true})
+                    this.refs.loader.close();
                 }
             }.bind(this),
             error: function(response) {
@@ -108,6 +113,8 @@ export default class QuizStart extends Component {
                     <Navbar.Brand href="/">Home</Navbar.Brand>
                     </Nav>
                 </Navbar>
+                <JqxLoader ref="loader"
+                    width={100} height={60} imagePosition={'top'} theme={'material'} isModal={true} />
                 {
                 this.state.flag?
                 <div className="container">

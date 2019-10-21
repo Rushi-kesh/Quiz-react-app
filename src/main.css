@@ -108,7 +108,8 @@ td {
       top: 80%;
       left: 2.5%;
       width: 95%;
-      margin-top: 1%;
+      
+      padding-bottom: 15%;
     }
     .top{
       width: 100%;
@@ -162,5 +163,8 @@ td {
   
   }
   .ag-theme-balham{
-      width:40%;   
+      width:50%;   
+  }
+  .jqx-tabs-content-material{
+    padding: 0%;
   }

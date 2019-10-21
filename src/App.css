@@ -7,7 +7,8 @@ h3{
    
 }
 a{
-   width: 33.33%;
+    color: white;
+   width: 50%;
    text-align: center;
    color: white;
    
@@ -52,4 +53,10 @@ a{
     background: rgb(48, 51, 226);
     border: 1px solid white;
     margin: 0%;
+}
+
+.alert-success{
+    position: absolute;
+    top: 10%;
+    left: 20%;
 }

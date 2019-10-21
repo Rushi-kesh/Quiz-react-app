@@ -3,6 +3,8 @@ import {Redirect} from 'react-router-dom';
 import $ from 'jquery';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import JqxTree from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtree';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert'
 export default class Quizes extends Component {
     constructor(props) {
         super(props)
@@ -41,7 +43,7 @@ export default class Quizes extends Component {
         });
     }
     onItemClick=(e)=> {
-        if(e.args.element.id.length==3){
+        if(e.args.element.id.length!=1){
             this.setState({id:e.args.element.id})
             this.setState({start:true})
             this.setState({text:e.args.element.innerText});
@@ -68,11 +70,29 @@ export default class Quizes extends Component {
                     }}
                     />:null}
             <div className="row">
-                <div className="col">
-                    <JqxTree width={400} onItemClick={this.onItemClick} source={this.state.data} ></JqxTree>
+                <div className="col-sm-4">
+                    <JqxTree width="100%" onItemClick={this.onItemClick} source={this.state.data} ></JqxTree>
                 </div>
                 <div className="col">
-                {this.state.start?<button onClick={this.startQuiz}>START QUIZ</button>:<h3>Please select category of Quizes</h3>}
+                {this.state.start?
+                <Alert variant="success">
+                    <Alert.Heading>Welcome to QUIZ-App</Alert.Heading>
+                    <p>
+                        Please Start Quiz on {this.state.text}
+                    </p>
+                    <hr/>
+                    <p>
+                    <Button className="btn" onClick={this.startQuiz}>START QUIZ</Button>
+                    </p>
+                </Alert>
+                :
+                <Alert variant="success">
+                    <Alert.Heading>Welcome to QUIZ-App</Alert.Heading>
+                    <p>
+                        Please select Category -> Sub Category to Start Quiz
+                    </p>
+                    
+                </Alert>}
                 </div>
             </div>
             </div>

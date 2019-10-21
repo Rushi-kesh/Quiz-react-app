@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
-import 'jqwidgets-scripts/jqwidgets/styles/jqx.energyblue.css';
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
 import $ from 'jquery';
 import JqxTabs from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtabs';
 import QuizQuestions from './QuizQuestions';
@@ -96,8 +96,8 @@ export default class Dashboard extends Component {
                             
                             <Nav.Link href="/">Logout</Nav.Link>
                         </Form>
-                    </Navbar>
-                <JqxTabs  width={"100%"} scrollable={false}  onTabclick={this.onTabclick} >
+                </Navbar>
+                <JqxTabs  width={"100%"} scrollable={false} theme={'material'} onTabclick={this.onTabclick} >
                     <ul style={{ marginLeft: 10 }}>
                         <li>Categories</li>
                         <li>SubCategories</li>

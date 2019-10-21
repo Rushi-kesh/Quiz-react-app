@@ -20,9 +20,41 @@ class QuizCategoryController
         $_quizCategory=new QuizCategoryModel;
         $_result=$_quizCategory->insertCategory($name);
         if($_result=='1')
-            return response()->json(['responce_code'=>200]);
+            return response()->json(['response_code'=>200]);
         else
-            return response()->json(['responce_code'=>202]);
+            return response()->json(['response_code'=>202]);
     }
-    
+    public function deleteCategory($id){
+        
+        $_quizCategory=new QuizCategoryModel;
+        $_result=$_quizCategory->deleteCategoryID($id);
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
+    }
+    public function searchCategories(Request $request)
+    {
+        $text=$request->input('text');
+        $_quizCategory=new QuizCategoryModel;
+        $_result=$_quizCategory->searchCategory($text);
+        return response()->json($_result);
+
+    }
+    public function updateCategory(Request $request)
+    {
+
+        $_quizCategory=new QuizCategoryModel;
+        $_result=$_quizCategory->updateCategoryID($request['id'],$request['Category_name']);
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
+    }
+    public function getAllCategories()
+    {
+        $_res=QuizCategoryModel::paginate(5);
+        return response()->json($_res);
+        
+    }
 }

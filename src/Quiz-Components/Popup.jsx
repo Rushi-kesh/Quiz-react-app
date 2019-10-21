@@ -63,8 +63,9 @@ class Popup extends Component {
                                 <p dangerouslySetInnerHTML={{__html: (text)}}></p>
                                 <span onClick={this.popupHandle}>
                                 <Button className="btn-info">{buttonText}</Button>
-                                <Button onClick={this.goBack} className="btn-warning">Go back</Button>
+                                
                                 </span>
+                                <Button onClick={this.goBack} className="btn-warning">Go back</Button>
                                 <hr/>
                             </div>
                         </div>

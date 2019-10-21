@@ -31,9 +31,17 @@ class QuizQuestionsController
         $_quizQuestion=new QuizQuestionModel;
         $_result=$_quizQuestion->insertQuestion($request->all());
         if($_result=='1')
-            return response()->json(['responce_code'=>200]);
+            return response()->json(['response_code'=>200]);
         else
-            return response()->json(['responce_code'=>202]);
+            return response()->json(['response_code'=>202]);
+    }
+    public function updateQuestion(Request $request){
+        $_quizQuestion=new QuizQuestionModel;
+        $_result=$_quizQuestion->updateQuestion($request->all());
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
     }
     public function getAllQuestions(Request $request)
     {
@@ -43,5 +51,23 @@ class QuizQuestionsController
         $_res=QuizQuestionModel::where('category_id',$Category_id)->where('sub_category_id',$SubCategory_id)->paginate(5);
         
         return response()->json($_res);
+    }
+    public function deleteQuestion($id)
+    {
+        $_quizQuestion=new QuizQuestionModel;
+        $_result=$_quizQuestion->deleteQuestion($id);
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
+    }
+    public function searchQuestions(Request $request)
+    {
+        $text=$request->input('text');
+        $id1=$request->input('category_id');
+        $id2=$request->input('sub_category_id');
+        $_quizCategory=new QuizQuestionModel;
+        $_result=$_quizCategory->searchQuestions($id1,$id2,$text);
+        return response()->json($_result);
     }
 }
