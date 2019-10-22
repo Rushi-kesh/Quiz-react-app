@@ -28,9 +28,6 @@ class QuizSubCategoryModel extends Model {
         return $data;
         //return QuizSubCategoryModel::join('categories','categories.id','=','sub_categories.category_id')->get();
     }
-    public function getSubCategories($id){
-        return QuizSubCategoryModel::where('category_id',$id)->get();
-    }
     public function insertSubCategory($data){
         return QuizSubCategoryModel::insert($data);
     }

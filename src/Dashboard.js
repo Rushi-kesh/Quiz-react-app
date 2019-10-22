@@ -1,7 +1,5 @@
+/*all required modules for the app*/
 import React, { Component } from 'react';
-import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
-import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
-import $ from 'jquery';
 import JqxTabs from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtabs';
 import QuizQuestions from './QuizQuestions';
 import QuizCategory from './QuizCategory';
@@ -9,7 +7,11 @@ import QuizSubCategory from './QuizSubCategory';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-
+/*all reuired css files for component*/
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
+/*ajax jquery import */
+import $ from 'jquery';
 export default class Dashboard extends Component {
     constructor(props) {
         super(props)

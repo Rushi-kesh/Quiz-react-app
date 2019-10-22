@@ -4,7 +4,6 @@
 $router->get('/quiz-app/V1/validate', 'UserLoginController@validate');
 
 //--------Quiz Category APIS----------
-
 $router->get('/quiz-app/V1/admin/quiz/categories','QuizCategoryController@getCategories');
 $router->get('/quiz-app/V1/admin/quiz/allcategories','QuizCategoryController@getAllCategories');
 $router->get('/quiz-app/V1/admin/quiz/categories/search','QuizCategoryController@searchCategories');
@@ -16,7 +15,6 @@ $router->delete('/quiz-app/V1/admin/quiz/categories/delete/{id}','QuizCategoryCo
 
 //--------Quiz Sub Category APIS----------
 $router->get('/quiz-app/V1/admin/quiz/allsubcategories','QuizSubCategoryController@getAllSubCategoriesTree');
-//$router->get('/quiz-app/V1/admin/quiz/subcategories','QuizSubCategoryController@getSubCategories');
 $router->get('/quiz-app/V1/admin/quiz/sub_categories/{id}','QuizSubCategoryController@getAllSubCategories');
 $router->get('/quiz-app/V1/admin/quiz/subcategories/search','QuizSubCategoryController@searchSubCategories');
 $router->post('/quiz-app/V1/admin/quiz/subcategories/add','QuizSubCategoryController@addSubCategory');

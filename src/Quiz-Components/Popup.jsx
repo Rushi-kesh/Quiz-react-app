@@ -16,7 +16,7 @@ class Popup extends Component {
         
         this.popupHandle = this.popupHandle.bind(this);
     }
-    
+    //this will deside which popup to show
     popupHandle() {
         let { time } = this.state;
         
@@ -26,8 +26,6 @@ class Popup extends Component {
                 title: 'Congratulations!',
                 buttonText: 'Restart'
             });
-
-            //alert("START THE QUIZ");
             this.props.startQuiz();
         } else {        
             location.reload();// restart the Quiz
@@ -58,12 +56,10 @@ class Popup extends Component {
                     <div className="container">
                         <div className="ml-5 col-md-10 col-10">
                             <div className="popup">
-                                
                                 <h1>{title}</h1>
                                 <p dangerouslySetInnerHTML={{__html: (text)}}></p>
                                 <span onClick={this.popupHandle}>
                                 <Button className="btn-info">{buttonText}</Button>
-                                
                                 </span>
                                 <Button onClick={this.goBack} className="btn-warning">Go back</Button>
                                 <hr/>

@@ -1,13 +1,10 @@
+/*all required modules for component*/
 import React, { Component } from 'react'
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import AddCell from './QuizAddQuestions.js';
 import EditData from './QuizEditQuestions';
 import { MdCreate } from 'react-icons/md';
 import Pagination from "react-js-pagination";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "./main.css";
 import JqxTree from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtree';
 import JqxNotification from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification';
 import { MdDelete } from 'react-icons/md';
@@ -16,6 +13,11 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+/*all required css for module */
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./main.css";
 /* JQUERY IMPORT FOR AJAX */
 import $ from 'jquery';
 export default class QuizQuestions extends Component {
@@ -324,24 +326,24 @@ export default class QuizQuestions extends Component {
               <div className="maindiv">
   
                   <JqxNotification ref="addednoti"
-                      width={300} position={'bottom-right'} opacity={1} autoOpen={false}
+                      width={300} position={'top-right'} opacity={1} autoOpen={false}
                       autoClose={true} animationOpenDelay={800} autoCloseDelay={3000} template={'success'}>
                       <div>
-                          Successfully added Category!
+                          Successfully added Question!
                       </div>
                   </JqxNotification>
                   <JqxNotification ref="deletenoti"
-                      width={300} position={'bottom-right'} opacity={1} autoOpen={false}
+                      width={300} position={'top-right'} opacity={1} autoOpen={false}
                       autoClose={true} animationOpenDelay={800} autoCloseDelay={3000} template={'error'}>
                       <div>
-                        Successfully deleted Category!
+                        Successfully deleted Question!
                       </div>
                   </JqxNotification>
                   <JqxNotification ref="updatenoti"
-                      width={300} position={'bottom-right'} opacity={1} autoOpen={false}
+                      width={300} position={'top-right'} opacity={1} autoOpen={false}
                       autoClose={true} animationOpenDelay={800} autoCloseDelay={3000} template={'success'}>
                       <div>
-                        Successfully updated Category!
+                        Successfully updated Question!
                       </div>
                   </JqxNotification>
                 <div className="top">

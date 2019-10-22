@@ -24,6 +24,7 @@ class QuizCategoryController
         else
             return response()->json(['response_code'=>202]);
     }
+    //This function is for deleting category bu id
     public function deleteCategory($id){
         
         $_quizCategory=new QuizCategoryModel;
@@ -33,6 +34,7 @@ class QuizCategoryController
         else
             return response()->json(['response_code'=>202]);
     }
+    //This function is for searching category in database
     public function searchCategories(Request $request)
     {
         $text=$request->input('text');
@@ -41,6 +43,7 @@ class QuizCategoryController
         return response()->json($_result);
 
     }
+    //This function is for updating existing category
     public function updateCategory(Request $request)
     {
 
@@ -51,6 +54,7 @@ class QuizCategoryController
         else
             return response()->json(['response_code'=>202]);
     }
+    //This function is for getting all category paginated
     public function getAllCategories()
     {
         $_res=QuizCategoryModel::paginate(5);

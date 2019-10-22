@@ -1,14 +1,16 @@
+/*all required modules for component */
 import React, { Component } from 'react'
 import Answers from './Answers.jsx';
 import Popup from './Popup.jsx';
-import './styles.css'
-/* JQUERY IMPORT FOR AJAX */
-import $ from 'jquery';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+/*required css */
+import './styles.css'
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
 import JqxLoader from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxloader';
+/* JQUERY IMPORT FOR AJAX */
+import $ from 'jquery';
 export default class QuizStart extends Component {
     constructor(props) {
         super(props)
@@ -16,7 +18,6 @@ export default class QuizStart extends Component {
         this.state = {
             count: 0,
             total: 0,
-            showButton: false,
             questionAnswered: false,
             score: 0,
             displayPopup: 'flex',
@@ -33,6 +34,7 @@ export default class QuizStart extends Component {
          
         
     }
+    //fetching 10 questions from database 
     getQuizData=(category_id,subcategory_id)=>{
         
         $.ajax({
@@ -58,6 +60,7 @@ export default class QuizStart extends Component {
             }
         });
     }
+    //inserting quiz data to states
     insertData=(count)=> {
        
         this.setState({
@@ -71,12 +74,13 @@ export default class QuizStart extends Component {
             count: this.state.count + 1
         });
     }
+    //this will handle the
     handleShowButton=()=> {
         this.setState({
-            showButton: true,
             questionAnswered: true
         })
     }
+    //this will change the question 
     nextQuestion=()=> {
         let {count, total} = this.state;
 
@@ -92,12 +96,14 @@ export default class QuizStart extends Component {
             });
         }
     }
+    //this will handle popup of quiz
     handleStartQuiz=()=>{
         this.setState({
             displayPopup: 'none',
             count: 1
         });
     }
+    //this will record score of user
     handleIncreaseScore=()=> {
         this.setState({
             score: this.state.score + 1

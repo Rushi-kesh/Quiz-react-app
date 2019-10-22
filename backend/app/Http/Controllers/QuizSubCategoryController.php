@@ -14,14 +14,7 @@ class QuizSubCategoryController
         $_result=$_quizSubCategory->getAllSubCategoriesTree();
         return response()->json($_result);
     }
-    //This function is for getting all Sub categories.
-    public function getSubCategories(Request $request)
-    {
-        $Category_id=$request->input('Category_id');
-        $_quizSubCategory=new QuizSubCategoryModel;
-        $_result=$_quizSubCategory->getSubCategories($Category_id);
-        return response()->json($_result);
-    }
+    
 
     //This function is for adding new Sub category
     public function addSubCategory(Request $request){
@@ -32,6 +25,7 @@ class QuizSubCategoryController
         else
             return response()->json(['responce_code'=>202]);
     }
+    //This function is for deleting Sub categories.
     public function deleteSubCategory($id){
         
         $_quizCategory=new QuizSubCategoryModel;
@@ -41,6 +35,7 @@ class QuizSubCategoryController
         else
             return response()->json(['response_code'=>202]);
     }
+    //This function is for searching Sub categories.
     public function searchSubCategories(Request $request)
     {
         $text=$request->input('text');
@@ -50,6 +45,7 @@ class QuizSubCategoryController
         return response()->json($_result);
 
     }
+    //This function is for updating Sub categories.
     public function updateSubCategory(Request $request)
     {
 
@@ -60,6 +56,7 @@ class QuizSubCategoryController
         else
             return response()->json(['response_code'=>202]);
     }
+    //This function is for getting all Sub categories.
     public function getAllSubCategories($id)
     {
         $_res=QuizSubCategoryModel::where('category_id',$id)->paginate(5);

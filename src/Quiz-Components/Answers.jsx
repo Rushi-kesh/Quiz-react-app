@@ -11,7 +11,7 @@ class Answers extends Component {
         this.checkAnswer = this.checkAnswer.bind(this);
         this.clearClasses = this.clearClasses.bind(this);
     }
-    
+    //checks the correct ans
     checkAnswer(e) {
         let { isAnswered } = this.props;
         
@@ -42,6 +42,7 @@ class Answers extends Component {
             }, 1000);
         }
     }
+    //clears the css
     clearClasses(){
         this.setState({
             classNames: ['', '', '', '']

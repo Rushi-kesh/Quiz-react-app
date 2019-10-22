@@ -1,10 +1,13 @@
+/*all the required module for the app */
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material-purple.css';
 import JqxForm from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxform';
-import $ from 'jquery';
 import JqxNotification from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification';
+/* JQUERY IMPORT FOR AJAX */
+import $ from 'jquery';
+
 export default class Login extends Component {
     constructor(props) {
         super(props)
@@ -45,8 +48,8 @@ export default class Login extends Component {
         
         }
     }
+    //on login button clicked
     onButtonClick=(e)=>{
-        //this.setState({status:true})
         let Username=this.refs.myform.getComponentByName('Username').val();
         let Password=this.refs.myform.getComponentByName('Password').val();
         if(Username==""){

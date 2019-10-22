@@ -1,10 +1,15 @@
+
+/*all reuired modules for component */
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom';
-import $ from 'jquery';
-import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import JqxTree from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtree';
 import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert'
+import Alert from 'react-bootstrap/Alert';
+/*required css for the component*/
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
+/* JQUERY IMPORT FOR AJAX */
+import $ from 'jquery';
+
 export default class Quizes extends Component {
     constructor(props) {
         super(props)
@@ -20,6 +25,7 @@ export default class Quizes extends Component {
     componentDidMount(){
         this.getData();
     }
+    //get tree of catgory and subcategory
     getData=()=>{
         $.ajax({
             url: "http://localhost:8000/quiz-app/V1/admin/quiz/allsubcategories",
@@ -28,7 +34,7 @@ export default class Quizes extends Component {
             success: function (response) {
               
                 if(response.code == "204") {
-                  this.setState({rowData:[]});
+                  this.setState({data:[]});
                 }
                 else {
                     
@@ -42,6 +48,7 @@ export default class Quizes extends Component {
             
         });
     }
+    //metadata of subcategory (total questions)
     getinfo=()=>{
         var id=this.state.id.split('-');
         $.ajax({
@@ -56,8 +63,6 @@ export default class Quizes extends Component {
                 else {
                   
                     this.setState({total:response.total});
-                    //this.gridApi.setRowData(response);
-                    //this.gridApi.redrawRows();
                    
                 }
                 
@@ -69,6 +74,7 @@ export default class Quizes extends Component {
         });
 
     }
+    //on subcatgory selected
     onItemClick=(e)=> {
         if(e.args.element.id.length!=1){
             this.setState({id:e.args.element.id});

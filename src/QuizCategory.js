@@ -1,11 +1,8 @@
+/*all the required module for the component */
 import React, { Component } from 'react'
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { MdCreate } from 'react-icons/md';
 import Pagination from "react-js-pagination";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import "./main.css";
 import JqxNotification from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification';
 import { MdDelete } from 'react-icons/md';
 import Navbar from 'react-bootstrap/Navbar';
@@ -13,7 +10,13 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import Dialog from 'react-bootstrap-dialog'
+import Dialog from 'react-bootstrap-dialog';
+
+/*all css files requied by the component */
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import "./main.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 /* JQUERY IMPORT FOR AJAX */
 import $ from 'jquery';
 
@@ -35,7 +38,7 @@ export default class QuizCategory extends Component {
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.delete}><MdDelete/></a></center>)
                 }
               }],
-             rowData:[],
+            rowData:[],
             editcelldata:null,
             defaultColDef: {
               sortable: true,
@@ -48,12 +51,11 @@ export default class QuizCategory extends Component {
             totalcount:null
         }
     }
-    
-    componentDidMount(){
-
-        this.getData();
-        
+      // component is mounted this function is invoked
+      componentDidMount(){
+          this.getData();
       }
+      //these are properties of ag grid to scale accorfing to size of window
       onGridReady = params => {
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
@@ -67,10 +69,8 @@ export default class QuizCategory extends Component {
     
         params.api.sizeColumnsToFit();
       };
-    
+      //on click of add button this function invoke
       toggleaddrec=()=>{
-        //this.setState({toggleadd:!this.state.toggleadd});
-        //this.dialog.TextPrompt({initialValue: 'me@example.com', placeholder: 'your email'})
         this.dialog.show({
           title: 'Add Category',
           body: 'Category Name',
@@ -85,35 +85,27 @@ export default class QuizCategory extends Component {
           
         })
       }
+      //on click of search button
       searchdata =()=> {
-       // var text=this.refs.searchval.value();
-       var obj={};
-       obj.text=this.state.searchtext;
-  
-       $.ajax({
-        url: "http://localhost:8000/quiz-app/V1/admin/quiz/categories/search",
-        type: "GET",
-        data:obj,
-        dataType:"json",
-        success: function (response) {
-            if(response.code == "204") {
-              this.setState({rowData:[]});
+        var obj={};
+        obj.text=this.state.searchtext;
+        $.ajax({
+            url: "http://localhost:8000/quiz-app/V1/admin/quiz/categories/search",
+            type: "GET",
+            data:obj,
+            dataType:"json",
+            success: function (response) {
+                if(response.code == "204") {
+                  this.setState({rowData:[]});
+                }
+                else {
+                    this.setState({rowData:response});
+                }
+            }.bind(this),
+            error: function(response) {
+                console.log(response);
             }
-            else {
-                this.setState({rowData:response});
-                //this.gridApi.setRowData(response);
-                //this.gridApi.redrawRows();
-               
-            }
-            
-        }.bind(this),
-        error: function(response) {
-            console.log(response);
-        }
-        
-    });
-  
-        
+          }); 
       }
       handletext=(e)=>{
         this.setState({searchtext:e.target.value})
@@ -121,6 +113,7 @@ export default class QuizCategory extends Component {
           this.getData();
         }
       }
+      //on page changed this function gets called
       handlePageChange=(pageNumber)=> {
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/allcategories?page="+pageNumber,
@@ -146,12 +139,12 @@ export default class QuizCategory extends Component {
           error: function(response) {
               console.log(response);
           
-      }
-    })
-  }
+        }
+      })
+    }
+      //on click edit this function get called
       edit=(e)=>{
         let data=this.state.rowData[e.currentTarget.id];
-        //this.setState({editcelldata:this.state.rowData[e.currentTarget.id]});
         this.dialog.show({
           title: 'Update Category',
           body: 'Category Name',
@@ -165,8 +158,9 @@ export default class QuizCategory extends Component {
           prompt:Dialog.TextPrompt({initialValue:data.category, placeholder: 'Category',required:true})
           
         })
-            //this.setState({toggleedit:!this.state.toggleedit})
+           
         }
+        //to get all categories data
         getData = ()=>{
           $.ajax({
               url: "http://localhost:8000/quiz-app/V1/admin/quiz/allcategories",
@@ -190,11 +184,13 @@ export default class QuizCategory extends Component {
               
           });
       }
+      //on cell value is changed thorough grid
       onCellValueChanged(params) {
         var id = params.data.id ;
         var Category_name = params.newValue;
         this.updateCategory(id,Category_name);         
       }
+      //function used to add data 
       addCategory=(Category_name)=>{
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/categories/add",
@@ -226,6 +222,7 @@ export default class QuizCategory extends Component {
           
       });
       }
+      //function used to update changes in data
       updateCategory=(id,Category_name)=>{
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/categories/update",
@@ -281,7 +278,6 @@ export default class QuizCategory extends Component {
           return (
               
               <div className="maindiv">
-  {console.log(this.state.msg)}
                   <JqxNotification ref="addednoti"
                       width={300} position={'top-right'} opacity={1} autoOpen={false}
                       autoClose={true} animationOpenDelay={800} autoCloseDelay={3000} template={'success'}>

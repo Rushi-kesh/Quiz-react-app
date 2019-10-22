@@ -4,7 +4,7 @@ import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import JqxTextArea from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtextarea';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material-purple.css';
 import JqxInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxinput';
-
+import Alert from 'react-bootstrap/Alert';
 export default class QuizEditQuestions extends React.Component {
   myTextArea = React.createRef();
   constructor(props) {
@@ -13,18 +13,38 @@ export default class QuizEditQuestions extends React.Component {
                    name: '',
                    team :'' ,
                    country: '',
-                   question:this.props.data.question
+                   question:this.props.data.question,
+                   msg:''
                 };
 
     
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  componentDidMount(){
-    
+  /****************Validation of data *************/
+  validate=(obj)=>{
+    if(obj.question==""){
+      this.setState({msg:"Please enter question!"})
+    }
+    else if(obj.correct_answer==""){
+      this.setState({msg:"Please enter correct answer"})
+    }
+    else if(obj.answer1==""){
+      this.setState({msg:"Please enter answer1"})
+    }
+    else if(obj.answer2==""){
+      this.setState({msg:"Please enter answer2"})
+    }
+    else if(obj.answer3==""){
+      this.setState({msg:"Please enter answer3"})
+    }
+    else{
+      return true;
+    }
+    return false;
   }
-  
+ 
 
-
+//******************on submit action in popup****************
   handleSubmit(event) {
     event.preventDefault();
     
@@ -40,8 +60,10 @@ export default class QuizEditQuestions extends React.Component {
       answer2,
       answer3
     }
-    this.props.updateData(obj);
-    this.props.edit();
+    if(this.validate(obj)){
+      this.props.updateData(obj);
+      this.props.modal();
+    }
   }
   handleQuestion=(e)=>{
     this.setState({question:e.target.value})
@@ -55,6 +77,18 @@ export default class QuizEditQuestions extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <ModalHeader>Add Question</ModalHeader>
           <ModalBody>
+          {this.state.msg!=""?
+            <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+             <Alert.Heading>
+              {this.state.msg}
+              </Alert.Heading>
+            </Alert>
+            :<Alert variant="info" onClose={() => setShow(false)} dismissible>
+            <Alert.Heading>
+             All fields are madatory
+             </Alert.Heading>
+           </Alert>
+          }
           <div className="row">
             <div className="form-group col">
             <label>Question:</label>
