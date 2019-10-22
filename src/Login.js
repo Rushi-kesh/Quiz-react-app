@@ -60,9 +60,13 @@ export default class Login extends Component {
         }
         else{
             $.ajax({
-                url: "http://localhost:8000/quiz-app/V1/validate?username="+Username+"&password="+Password,
-                type: "GET",
+                url: "http://localhost:8000/quiz-app/V1/validate",
+                type: "POST",
                 dataType:"json",
+                data:{
+                    username:Username,
+                    password:Password
+                },
                 success: function (response) {
                   
                     if(response.status == "failed") {

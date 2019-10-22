@@ -15,7 +15,6 @@ class UserLoginController
             $password = $request->input('password');
             $_login=new UserLoginModel;
             $result=$_login->validateUser($username, $password);
-            
             if($result!='[]')
                 return response()->json(['status'=>'succcess']);
             else

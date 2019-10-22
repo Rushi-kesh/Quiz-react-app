@@ -1,7 +1,7 @@
 <?php
 
 //---------Login APIS-----------
-$router->get('/quiz-app/V1/validate', 'UserLoginController@validate');
+$router->post('/quiz-app/V1/validate', 'UserLoginController@validate');
 
 //--------Quiz Category APIS----------
 $router->get('/quiz-app/V1/admin/quiz/categories','QuizCategoryController@getCategories');
