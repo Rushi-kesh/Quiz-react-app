@@ -4,23 +4,31 @@ import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
 import JqxTextArea from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtextarea';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material-purple.css';
 import JqxInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxinput';
+
 export default class QuizEditQuestions extends React.Component {
+  myTextArea = React.createRef();
   constructor(props) {
     super(props);
-    this.state = { modal: false,name: '',team :'' ,country: ''};
+    this.state = { modal: false,
+                   name: '',
+                   team :'' ,
+                   country: '',
+                   question:this.props.data.question
+                };
 
     
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount(){
-    //this.refs.question.val(this.props.data.question);
+    
   }
-
+  
 
 
   handleSubmit(event) {
     event.preventDefault();
-    var question=this.props.data.question;
+    
+    var question=this.state.question;
     var correct_answer=this.refs.correct_answer.val();
     var answer1=this.refs.answer1.val();
     var answer2=this.refs.answer2.val();
@@ -35,7 +43,9 @@ export default class QuizEditQuestions extends React.Component {
     this.props.updateData(obj);
     this.props.edit();
   }
-
+  handleQuestion=(e)=>{
+    this.setState({question:e.target.value})
+  }
 
   render() {
     return (
@@ -48,7 +58,7 @@ export default class QuizEditQuestions extends React.Component {
           <div className="row">
             <div className="form-group col">
             <label>Question:</label>
-            <JqxTextArea ref="question" width={"100%"}  height={70} className="form-control" />
+            <textarea type="textarea" id="jqxTextArea" ref={"Question"} width={"100%"}  value={this.state.question} onChange={this.handleQuestion} className="form-control"></textarea>
               </div>
               </div>
             <div className="row">

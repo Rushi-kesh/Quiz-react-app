@@ -42,9 +42,37 @@ export default class Quizes extends Component {
             
         });
     }
+    getinfo=()=>{
+        var id=this.state.id.split('-');
+        $.ajax({
+            url: "http://localhost:8000/quiz-app/V1/admin/quiz/allQuestions?Category_id="+id[0]+"&SubCategory_id="+id[1],
+            type: "GET",
+            dataType:"json",
+            success: function (response) {
+              
+                if(response.code == "204") {
+                  this.setState({total:0});
+                }
+                else {
+                  
+                    this.setState({total:response.total});
+                    //this.gridApi.setRowData(response);
+                    //this.gridApi.redrawRows();
+                   
+                }
+                
+            }.bind(this),
+            error: function(response) {
+                console.log(response);
+            }
+            
+        });
+
+    }
     onItemClick=(e)=> {
         if(e.args.element.id.length!=1){
-            this.setState({id:e.args.element.id})
+            this.setState({id:e.args.element.id});
+            this.getinfo();
             this.setState({start:true})
             this.setState({text:e.args.element.innerText});
         }
@@ -80,9 +108,12 @@ export default class Quizes extends Component {
                     <p>
                         Please Start Quiz on {this.state.text}
                     </p>
+                    <p>
+                        This Quiz contains {this.state.total} Questions out  of which {this.state.total<10?this.state.total:10} Questions are randomly selected for Quiz.
+                    </p>
                     <hr/>
                     <p>
-                    <Button className="btn" onClick={this.startQuiz}>START QUIZ</Button>
+                    {this.state.total!=0?<Button className="btn" onClick={this.startQuiz}>START QUIZ</Button>:null}
                     </p>
                 </Alert>
                 :
