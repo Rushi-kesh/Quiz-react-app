@@ -290,7 +290,24 @@ export default class QuizCategory extends Component {
     deleteData=()=>{
       const selectedNodes = this.gridApi.getSelectedNodes()
       const selectedData = selectedNodes.map( node => node.data );
-      console.log(selectedData)
+      $.ajax({
+        url: "http://localhost:8000/quiz-app/V1/admin/quiz/categories/delete",
+        type: 'DELETE',
+        data:{
+          data:selectedData
+        },
+        success: function (response) {
+          this.refs.deletenoti.open(); 
+          this.handlePageChange(this.state.activepage) 
+        }.bind(this),
+        error: function(response) {
+            console.log(response);
+        }
+      
+      })
+    this.gridApi.updateRowData({ remove: selectedData});
+    this.gridApi.redrawRows();
+    
     }
       render() {
           

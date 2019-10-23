@@ -63,5 +63,17 @@ class QuizSubCategoryController
         return response()->json($_res);
         
     }
+    public function deleteMultipleSubCategories(Request $request)
+    {
+        $_quizCategory=new QuizSubCategoryModel;
+        $data=$request['data'];
+        foreach ($data as $key => $value) {
+            $_result=$_quizCategory->deleteSubCategoryID($value['id']);
+        }
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
+    }
     
 }

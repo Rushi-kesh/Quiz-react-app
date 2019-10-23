@@ -62,8 +62,16 @@ class QuizCategoryController
         
     }
     //This functions is to delete multiple categories
-    public function deleteMultipleCategories()
+    public function deleteMultipleCategories(Request $request)
     {
-        
+        $_quizCategory=new QuizCategoryModel;
+        $data=$request['data'];
+        foreach ($data as $key => $value) {
+            $_result=$_quizCategory->deleteCategoryID($value['id']);
+        }
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
     }
 }

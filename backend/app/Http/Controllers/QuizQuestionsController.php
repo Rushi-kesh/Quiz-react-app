@@ -70,4 +70,22 @@ class QuizQuestionsController
         $_result=$_quizCategory->searchQuestions($id1,$id2,$text);
         return response()->json($_result);
     }
+    public function deleteMultipleQuestions(Request $request)
+    {
+        $_quizCategory=new QuizQuestionModel;
+        $data=$request['data'];
+        foreach ($data as $key => $value) {
+            $_result=$_quizCategory->deleteQuestion($value['id']);
+        }
+        if($_result=='1')
+            return response()->json(['response_code'=>200]);
+        else
+            return response()->json(['response_code'=>202]);
+    }
+    public function getAllCategoriesQuestion($id)
+    {
+        $_res=QuizQuestionModel::where('category_id',$id)->paginate(5);
+        return response()->json($_res);
+        
+    }
 }

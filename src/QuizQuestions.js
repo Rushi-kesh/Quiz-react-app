@@ -126,6 +126,7 @@ export default class QuizQuestions extends Component {
         }
       }
       handlePageChange=(pageNumber)=> {
+        this.setState({activepage:pageNumber})
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/allQuestions?Category_id="+this.state.cat_id+"&SubCategory_id="+this.state.subCat_id+"&page="+pageNumber,
           type: "GET",
@@ -326,6 +327,28 @@ export default class QuizQuestions extends Component {
         
     });
     }
+    deleteData=()=>{
+      const selectedNodes = this.gridApi.getSelectedNodes()
+      const selectedData = selectedNodes.map( node => node.data );
+      $.ajax({
+        url: "http://localhost:8000/quiz-app/V1/admin/quiz/questions/delete",
+        type: 'DELETE',
+        data:{
+          data:selectedData
+        },
+        success: function (response) {
+          this.refs.deletenoti.open(); 
+          selectedData.length==5?this.handlePageChange(this.state.activepage-1):this.handlePageChange(this.state.activepage)  
+        }.bind(this),
+        error: function(response) {
+            console.log(response);
+        }
+      
+      })
+    this.gridApi.updateRowData({ remove: selectedData});
+    this.gridApi.redrawRows();
+    
+    }
       render() {
           
           return (
@@ -368,6 +391,7 @@ export default class QuizQuestions extends Component {
                           {this.state.subCat_id?<Button className="btn btn-info btn-sm"  onClick={this.toggleaddrec}>Add Question</Button>:null}
                             </Nav>
                           <Form onSubmit={this.handleSubmit} inline>
+                          <Button className="btn btn-info btn-sm mr-sm-2" onClick={this.deleteData}><MdDelete/></Button>
                             <FormControl type="text" placeholder="Search" className=" mr-sm-2" size='sm'  value={this.state.searchtext} onChange={this.handletext} />
                             <Button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</Button>
                           </Form>

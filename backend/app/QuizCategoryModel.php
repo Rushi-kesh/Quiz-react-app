@@ -29,5 +29,6 @@ class QuizCategoryModel extends Model {
     public function updateCategoryID($id,$category_name){
         return QuizCategoryModel::where('id',$id)->update(['category'=>$category_name]);
     }
+    
 }
 ?>
