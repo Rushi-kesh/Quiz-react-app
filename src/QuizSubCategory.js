@@ -25,15 +25,15 @@ export default class QuizSubCategory extends Component {
         super(props)
         this.state = {
             columnData: [{
-                headerName: "SubCategoryName", field: "sub_category",width:370,sortable:true,checkboxSelection:true
+                headerName: "SubCategoryName", field: "sub_category",width:530,sortable:true,checkboxSelection:true
               },{
-                headerName: "Edit", field: "edit",editable:false,filter:false,width:130,cellRendererFramework: (params)=>{
+                headerName: "Edit", field: "edit",editable:false,filter:false,width:50,cellRendererFramework: (params)=>{
                   this.setState({editcelldata:params.data})
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.edit}><MdCreate/></a></center>)
                 }
               },{
-                headerName: "Delete",editable:false,filter:false, field: "delete",width:130,cellRendererFramework: (params)=>{
+                headerName: "Delete",editable:false,filter:false, field: "delete",width:67,cellRendererFramework: (params)=>{
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.delete}><MdDelete/></a></center>)
                 }
@@ -52,12 +52,6 @@ export default class QuizSubCategory extends Component {
             data:[]
         }
     }
-    
-    componentDidMount(){
-        
-        
-        
-      }
       onGridReady = params => {
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
@@ -81,6 +75,11 @@ export default class QuizSubCategory extends Component {
             Dialog.OKAction((e) => {
               this.addCategory(e.promptInput.value);
               this.getData(this.state.category_id);
+                if(this.state.totalcount%5==0)
+                  this.handlePageChange(this.state.last_page+1);
+                else{
+                  this.handlePageChange(this.state.last_page)
+                }
             })
           ],
           bsSize: 'small',
@@ -130,7 +129,6 @@ export default class QuizSubCategory extends Component {
           success: function (response) {
             
               if(response.response_code == "200") {
-               // this.getData(category_id);
                 this.refs.addednoti.open();
 
               }
@@ -157,7 +155,7 @@ export default class QuizSubCategory extends Component {
           success: function (response) {
             
               if(response.response_code == "200") {
-                this.getData(category_id);
+                //this.getData(category_id);
                 this.refs.updatenoti.open();
               }
               
@@ -171,7 +169,7 @@ export default class QuizSubCategory extends Component {
       handletext=(e)=>{
         this.setState({searchtext:e.target.value})
         if(e.target.value==""){
-          this.getData();
+          this.getData(this.state.category_id);
         }
       }
       handlePageChange=(pageNumber)=> {
@@ -207,7 +205,9 @@ export default class QuizSubCategory extends Component {
         actions: [
           Dialog.CancelAction(),
           Dialog.OKAction((e) => {
-            this.updateSubCategory(data.id,data.category_id,e.promptInput.value)
+            this.updateSubCategory(data.id,data.category_id,e.promptInput.value);
+            this.handlePageChange(this.state.last_page)
+            
           })
         ],
         bsSize: 'small', 
@@ -228,7 +228,7 @@ export default class QuizSubCategory extends Component {
                   else {
                     
                       this.setState({rowData:response.data,
-                        totalcount:response.total});
+                        totalcount:response.total,last_page:response.last_page});
                   }
                   
               }.bind(this),
@@ -256,14 +256,20 @@ export default class QuizSubCategory extends Component {
                   url: "http://localhost:8000/quiz-app/V1/admin/quiz/subcategories/delete/"+selected.id,
                   type: 'DELETE',
                   success: function (response) {
-                    this.refs.deletenoti.open();  
+                    this.refs.deletenoti.open(); 
+                    this.getData(this.state.category_id)
+                    if(this.state.totalcount%5==1)
+                      this.handlePageChange(this.state.last_page-1);
+                    else{
+                        this.handlePageChange(this.state.last_page)
+                    } 
                   }.bind(this),
                   error: function(response) {
                       console.log(response);
                   }
                 
                 })
-              this.getData(this.state.category_id)
+              
               })
           ],
           bsSize: 'small'
@@ -273,6 +279,10 @@ export default class QuizSubCategory extends Component {
     onItemClick=(e)=>{
       this.getData(e.args.element.id);
       this.setState({category_id:e.args.element.id})
+    }
+    handleSubmit=(e)=>{
+      e.preventDefault();
+      this.searchdata();
     }
       render() {
           
@@ -314,7 +324,7 @@ export default class QuizSubCategory extends Component {
                           <Nav className="mr-auto">
                               {this.state.category_id?<Button className="btn btn-info btn-sm"  onClick={this.toggleaddrec}>Add Sub Category</Button>:null}
                             </Nav>
-                          <Form inline>
+                          <Form onSubmit={this.handleSubmit} inline>
                             <FormControl type="text" placeholder="Search" className=" mr-sm-2" size='sm'  value={this.state.searchtext} onChange={this.handletext} />
                             <Button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</Button>
                           </Form>

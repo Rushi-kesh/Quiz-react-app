@@ -61,4 +61,9 @@ class QuizCategoryController
         return response()->json($_res);
         
     }
+    //This functions is to delete multiple categories
+    public function deleteMultipleCategories()
+    {
+        
+    }
 }

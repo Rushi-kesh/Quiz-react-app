@@ -1,7 +1,13 @@
 /*all the required module for the app */
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card'
+import JqxPasswordInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxpasswordinput';
+import JqxInput, { IInputProps } from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxinput';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material-purple.css';
 import JqxForm from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxform';
 import JqxNotification from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxnotification';
@@ -50,8 +56,9 @@ export default class Login extends Component {
     }
     //on login button clicked
     onButtonClick=(e)=>{
-        let Username=this.refs.myform.getComponentByName('Username').val();
-        let Password=this.refs.myform.getComponentByName('Password').val();
+        e.preventDefault();
+        let Username=this.refs.username.val();
+        let Password=this.refs.password.val();
         if(Username==""){
             this.refs.notifyUsername.open();
         }
@@ -86,14 +93,15 @@ export default class Login extends Component {
         }
         
     }
+    componentDidMount(){
+        this.refs.username.focus();
+    }
     render() {
         
         return (
             <div>
             {this.state.status?<Redirect to='/dashboard' />:null}
-            
-            <div id="container" className="Login">
-                <JqxNotification ref="notifyUsername"
+            <JqxNotification ref="notifyUsername"
                     width={300} position={'top-right'} opacity={0.9} autoOpen={false}
                     autoClose={true} animationOpenDelay={800} autoCloseDelay={3000} template={'info'}>
                     <div>
@@ -121,14 +129,41 @@ export default class Login extends Component {
                         Success
                     </div>
                 </JqxNotification >
-                <h3 style={{color:'white'}}>Admin Login</h3>
-                <div className="form-jqx">
-                <JqxForm ref="myform" onFormDataChange onButtonClick={this.onButtonClick} style={{ width: "100%" }}
-                    template={this.state.template}  backgroundColor={'rgb(48, 51, 226)'}
-                />
+                <main className="login-form">
+                    <div className="cotainer">
+                        <div className="row justify-content-center">
+                            <div className="main-card col-md-6">
+                                <div bg="primary" className="card">
+                                    <div  className="card-header">Admin Login</div>
+                                    <div className="card-body">
+                                        <Form className="myform" onSubmit={this.onButtonClick}>
+                                            <div className="form-group row"></div>
+                                            <div className="form-group row">
+                                                <label htmlFor="username" className="col-md-5 col-form-label text-md-right">Username</label>
+                                                <div className="col-md-6">
+                                                    <JqxInput ref="username" id="username" width={"80%"} height={35} minLength={1} placeHolder={'Enter Username'} autoFocus/>
+                                                </div>
+                                            </div>
+                                            <div className="form-group row">
+                                                <label htmlFor="password" className="col-md-5 col-form-label text-md-right">Password</label>
+                                                <div className="col-md-6">
+                                                    <JqxPasswordInput ref="password" id="password" width={"80%"} height={35} placeHolder={'Enter Password'} />
+                                                </div>
+                                            </div>
+                                            <div className="form-group row col-md-8 offset-md-8">
+                                                <Button type="submit" className="btn btn-sm btn-primary">
+                                                    Login
+                                                </Button>
+                                            </div>
+                                    </Form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </main>
                 </div>
-            </div>
-            </div>
+            
         )
     }
 }

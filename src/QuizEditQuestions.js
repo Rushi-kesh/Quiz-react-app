@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.base.css';
-import JqxTextArea from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxtextarea';
 import 'jqwidgets-scripts/jqwidgets/styles/jqx.material-purple.css';
 import JqxInput from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxinput';
 import Alert from 'react-bootstrap/Alert';
@@ -62,7 +61,7 @@ export default class QuizEditQuestions extends React.Component {
     }
     if(this.validate(obj)){
       this.props.updateData(obj);
-      this.props.modal();
+      this.props.edit();
     }
   }
   handleQuestion=(e)=>{

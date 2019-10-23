@@ -20,23 +20,23 @@ a{
     color: rgb(48, 51, 226);
     
 }
-.Login{
+.main-card{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    padding: 5%;
-    background-color:rgb(48, 51, 226);
+    top: 30%;
 }
-
+.card-header{
+    background: rgb(48, 51, 226);
+    color: white;
+}
 #label_el_0{
     color: white;
 }
 
 #label_el_1{
     color: white;
+}
+.myform{
+    border: 2px solid rgb(48, 51, 226);;
 }
 #el_2{
     padding-left:5%;

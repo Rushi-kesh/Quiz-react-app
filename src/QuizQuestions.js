@@ -35,13 +35,13 @@ export default class QuizQuestions extends Component {
               },{
                 headerName: "Answer3", field: "answer3",sortable:true
               },{
-                headerName: "Edit", field: "edit",editable:false,filter:false,width:70,cellRendererFramework: (params)=>{
+                headerName: "Edit", field: "edit",editable:false,filter:false,width:50,cellRendererFramework: (params)=>{
                   this.setState({editcelldata:params.data})
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.edit}><MdCreate/></a></center>)
                 }
               },{
-                headerName: "Delete",editable:false, field: "delete",filter:false,width:70,cellRendererFramework: (params)=>{
+                headerName: "Delete",editable:false, field: "delete",filter:false,width:67,cellRendererFramework: (params)=>{
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.delete}><MdDelete/></a></center>)
                 }
@@ -108,9 +108,6 @@ export default class QuizQuestions extends Component {
              }
              else {
                  this.setState({rowData:response});
-                 //this.gridApi.setRowData(response);
-                 //this.gridApi.redrawRows();
-                
              }
              
          }.bind(this),
@@ -143,9 +140,6 @@ export default class QuizQuestions extends Component {
                   this.setState({rowData:response.data,
                     totalcount:response.total,
                   activePage:response.current_page});
-                 
-                  //this.gridApi.setRowData(response);
-                  //this.gridApi.redrawRows();
                  
               }
               
@@ -180,10 +174,7 @@ export default class QuizQuestions extends Component {
                   else {
                     
                       this.setState({rowData:response.data,
-                        totalcount:response.total});
-                      //this.gridApi.setRowData(response);
-                      //this.gridApi.redrawRows();
-                     
+                        totalcount:response.total,last_page:response.last_page});
                   }
                   
               }.bind(this),
@@ -203,7 +194,10 @@ export default class QuizQuestions extends Component {
               [field_name]:new_value
             }           
         }
-            
+      handleSubmit=(e)=>{
+          e.preventDefault();
+          this.searchdata();
+      } 
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/questions/update",
           type: "PUT",
@@ -237,7 +231,14 @@ export default class QuizQuestions extends Component {
             if(response.response_code="200")
             {
               this.refs.deletenoti.open();
-              this.getData();
+              this.gridApi.updateRowData({ remove: [selected]});
+              this.gridApi.redrawRows();
+              if(this.state.totalcount%5==1)
+                      this.handlePageChange(this.state.last_page-1);
+              else{
+                  this.handlePageChange(this.state.last_page)
+              } 
+                
             }
           }.bind(this),
           error: function(response) {
@@ -276,6 +277,11 @@ export default class QuizQuestions extends Component {
           
             if(response.response_code == "200") {
               this.getData();
+              if(this.state.totalcount%5==0)
+                  this.handlePageChange(this.state.last_page+1);
+                else{
+                  this.handlePageChange(this.state.last_page)
+                }
               this.refs.addednoti.open();
 
             }
@@ -305,6 +311,7 @@ export default class QuizQuestions extends Component {
           
             if(response.response_code == "200") {
               this.getData();
+              this.handlePageChange(this.state.last_page);
               this.refs.updatenoti.open();
 
             }
@@ -360,7 +367,7 @@ export default class QuizQuestions extends Component {
                           <Nav className="mr-auto">
                           {this.state.subCat_id?<Button className="btn btn-info btn-sm"  onClick={this.toggleaddrec}>Add Question</Button>:null}
                             </Nav>
-                          <Form inline>
+                          <Form onSubmit={this.handleSubmit} inline>
                             <FormControl type="text" placeholder="Search" className=" mr-sm-2" size='sm'  value={this.state.searchtext} onChange={this.handletext} />
                             <Button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</Button>
                           </Form>

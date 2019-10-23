@@ -25,15 +25,15 @@ export default class QuizCategory extends Component {
         super(props)
         this.state = {
             columnData: [{
-                headerName: "Category Name", field: "category",sortable:true,checkboxSelection:true
+                headerName: "Category Name", width:367,field: "category",sortable:true,checkboxSelection:true
               },{
-                headerName: "Edit", field: "edit",editable:false,width:70,cellRendererFramework: (params)=>{
+                headerName: "Edit", field: "edit",editable:false,width:50,cellRendererFramework: (params)=>{
                   this.setState({editcelldata:params.data})
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.edit}><MdCreate/></a></center>)
                 }
               },{
-                headerName: "Delete",editable:false, field: "delete",width:70,cellRendererFramework: (params)=>{
+                headerName: "Delete",editable:false, field: "delete",width:64,cellRendererFramework: (params)=>{
                   
                   return(<center><a className="bttest" id={this.state.rowData.indexOf(params.data)} onClick={this.delete}><MdDelete/></a></center>)
                 }
@@ -115,6 +115,7 @@ export default class QuizCategory extends Component {
       }
       //on page changed this function gets called
       handlePageChange=(pageNumber)=> {
+        this.setState({activepage:pageNumber});
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/allcategories?page="+pageNumber,
           type: "GET",
@@ -167,13 +168,12 @@ export default class QuizCategory extends Component {
               type: "GET",
               dataType:"json",
               success: function (response) {
-                
                   if(response.code == "204") {
                     this.setState({rowData:[]});
                   }
                   else {
                       this.setState({rowData:response.data,
-                        totalcount:response.total});
+                        totalcount:response.total,last_page:response.last_page});
                      
                   }
                   
@@ -202,7 +202,12 @@ export default class QuizCategory extends Component {
           success: function (response) {
             
               if(response.response_code == "200") {
-                this.getData();
+                this.getData()
+                if(this.state.totalcount%5==0)
+                  this.handlePageChange(this.state.last_page+1);
+                else{
+                  this.handlePageChange(this.state.last_page)
+                }
                 this.refs.addednoti.open();
 
               }
@@ -235,7 +240,12 @@ export default class QuizCategory extends Component {
           success: function (response) {
             
               if(response.response_code == "200") {
-                this.getData();
+                //this.getData()
+                if(this.state.totalcount%5==0)
+                  this.handlePageChange(this.state.last_page+1);
+                else{
+                  this.handlePageChange(this.state.last_page)
+                }
                 this.refs.updatenoti.open();
               }
               
@@ -273,6 +283,15 @@ export default class QuizCategory extends Component {
         });
         
     }
+    handleSubmit=(e)=>{
+        e.preventDefault();
+        this.searchdata();
+    }
+    deleteData=()=>{
+      const selectedNodes = this.gridApi.getSelectedNodes()
+      const selectedData = selectedNodes.map( node => node.data );
+      console.log(selectedData)
+    }
       render() {
           
           return (
@@ -305,6 +324,8 @@ export default class QuizCategory extends Component {
                 <div className="row">
                     <div className="col-sm-2">
                     </div>
+                    <div className="col-sm-1">
+                    </div>
                     <div className="col">
                       <Dialog  ref={(component) => { this.dialog = component }} /> 
                       <div style={{width:"100%"}} className="ag-theme-balham">
@@ -312,7 +333,8 @@ export default class QuizCategory extends Component {
                             <Nav className="mr-auto">
                                 <Button className="btn btn-info btn-sm"  onClick={this.toggleaddrec}>Add Category</Button>
                               </Nav>
-                            <Form inline>
+                            <Form onSubmit={this.handleSubmit} inline>
+                            <Button className="btn btn-info btn-sm mr-sm-2" onClick={this.deleteData}><MdDelete/></Button>
                               <FormControl type="text" placeholder="Search" className=" mr-sm-2" size='sm'  value={this.state.searchtext} onChange={this.handletext} />
                               <Button className="btn btn-info btn-sm" onClick={this.searchdata}>Search</Button>
                             </Form>
@@ -344,6 +366,7 @@ export default class QuizCategory extends Component {
                           </div>
                         </div>
                     </div>
+                    <div className="col-sm-1"></div>
                     <div className="col-sm-2"></div>
                   </div>
                     
