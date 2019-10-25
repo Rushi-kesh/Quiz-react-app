@@ -92,7 +92,7 @@ export default class Dashboard extends Component {
                 <Navbar bg="primary" variant="dark">
                     
                         <Nav className="mr-auto">
-                        <Navbar.Brand href="/">Home</Navbar.Brand>
+                        <Navbar.Brand href="/dashboard">Home</Navbar.Brand>
                         </Nav>
                         <Form inline>
                             

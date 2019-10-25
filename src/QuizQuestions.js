@@ -13,6 +13,9 @@ import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
+import JqxLoader from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxloader';
 /*all required css for module */
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
@@ -63,12 +66,6 @@ export default class QuizQuestions extends Component {
             ]
         }
     }
-    
-    componentDidMount(){
-
-       
-        
-      }
       onGridReady = params => {
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
@@ -126,12 +123,14 @@ export default class QuizQuestions extends Component {
         }
       }
       handlePageChange=(pageNumber)=> {
+        this.refs.loader.open();
         this.setState({activepage:pageNumber})
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/allQuestions?Category_id="+this.state.cat_id+"&SubCategory_id="+this.state.subCat_id+"&page="+pageNumber,
           type: "GET",
           dataType:"json",
           success: function (response) {
+            this.refs.loader.close();
               if(response.code == "204") {
                 this.setState({rowData:[]});
               
@@ -147,6 +146,7 @@ export default class QuizQuestions extends Component {
           }.bind(this),
           error: function(response) {
               console.log(response);
+              this.refs.loader.close();
           
       }
     })
@@ -163,12 +163,13 @@ export default class QuizQuestions extends Component {
           this.setState({toggleedit:!this.state.toggleedit})
         }
         getData = ()=>{
+          this.refs.loader.open();
           $.ajax({
               url: "http://localhost:8000/quiz-app/V1/admin/quiz/allQuestions?Category_id="+this.state.cat_id+"&SubCategory_id="+this.state.subCat_id,
               type: "GET",
               dataType:"json",
               success: function (response) {
-                
+                  this.refs.loader.close();
                   if(response.code == "204") {
                     this.setState({rowData:[]});
                   }
@@ -181,7 +182,8 @@ export default class QuizQuestions extends Component {
               }.bind(this),
               error: function(response) {
                   console.log(response);
-              }
+                  this.refs.loader.close();
+              }.bind(this)
               
           });
       }
@@ -195,10 +197,7 @@ export default class QuizQuestions extends Component {
               [field_name]:new_value
             }           
         }
-      handleSubmit=(e)=>{
-          e.preventDefault();
-          this.searchdata();
-      } 
+
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/questions/update",
           type: "PUT",
@@ -223,12 +222,18 @@ export default class QuizQuestions extends Component {
       });
                     
       }
+      handleSubmit=(e)=>{
+          e.preventDefault();
+          this.searchdata();
+      } 
       delete=(e)=>{
+        this.refs.loader.open();
         var selected=this.state.rowData[e.currentTarget.id];
         $.ajax({
           url: "http://localhost:8000/quiz-app/V1/admin/quiz/questions/delete/"+selected.id,
           type: 'DELETE',
           success: function (response) {
+            this.refs.loader.close();
             if(response.response_code="200")
             {
               this.refs.deletenoti.open();
@@ -243,20 +248,30 @@ export default class QuizQuestions extends Component {
             }
           }.bind(this),
           error: function(response) {
+            this.refs.loader.close();
               console.log(response);
-          }
+              
+          }.bind(this)
         
         })
         
     }
     onItemClick=(e)=>{
+      
         if(e.args.element.id.length!=1){
             var ids=e.args.element.id.split('-');
             this.setState({cat_id:ids[0],subCat_id:ids[1]});
             this.getData()
         }
+        else{
+          this.setState({cat_id:e.args.element.id,subCat_id:undefined});
+          this.getData();
+          
+        }
     }
+    
     addData=(data)=>{
+      this.refs.loader.open();
       var category_id=this.state.cat_id;
       var sub_category_id=this.state.subCat_id;
       var {question,answer1,answer2,answer3,correct_answer}=data;
@@ -284,20 +299,23 @@ export default class QuizQuestions extends Component {
                   this.handlePageChange(this.state.last_page)
                 }
               this.refs.addednoti.open();
+              this.refs.loader.close();
 
             }
             else {
-               
+              this.refs.loader.close();
             }
             
         }.bind(this),
         error: function(response) {
             console.log(response);
-        }
+            this.refs.loader.close();
+        }.bind(this)
         
     });
     }
     updateData=(data)=>{
+      this.state.loader.open();
       var id=this.state.editcelldata.id;
       var obj={
         id,
@@ -309,7 +327,7 @@ export default class QuizQuestions extends Component {
         dataType:"json",
         data:obj,
         success: function (response) {
-          
+            this.loader.close();
             if(response.response_code == "200") {
               this.getData();
               this.handlePageChange(this.state.last_page);
@@ -323,11 +341,13 @@ export default class QuizQuestions extends Component {
         }.bind(this),
         error: function(response) {
             console.log(response);
-        }
+            this.refs.loader.close();
+        }.bind(this)
         
     });
     }
     deleteData=()=>{
+      this.refs.loader.open();
       const selectedNodes = this.gridApi.getSelectedNodes()
       const selectedData = selectedNodes.map( node => node.data );
       $.ajax({
@@ -338,11 +358,13 @@ export default class QuizQuestions extends Component {
         },
         success: function (response) {
           this.refs.deletenoti.open(); 
+          this.refs.loader.close();
           selectedData.length==5?this.handlePageChange(this.state.activepage-1):this.handlePageChange(this.state.activepage)  
         }.bind(this),
         error: function(response) {
             console.log(response);
-        }
+            this.refs.loader.close();
+        }.bind(this)
       
       })
     this.gridApi.updateRowData({ remove: selectedData});
@@ -376,6 +398,8 @@ export default class QuizQuestions extends Component {
                         Successfully updated Question!
                       </div>
                   </JqxNotification>
+                  <JqxLoader ref="loader"
+                    width={100} height={60} imagePosition={'top'} theme={'material'} isModal={true} />
                 <div className="top">
                   <h1>Questions</h1>
                 </div>

@@ -48,8 +48,10 @@ class QuizQuestionsController
         $Category_id=$request->input('Category_id');
         $SubCategory_id=$request->input('SubCategory_id');
         
-        $_res=QuizQuestionModel::where('category_id',$Category_id)->where('sub_category_id',$SubCategory_id)->paginate(5);
-        
+        if($SubCategory_id!="undefined")
+            $_res=QuizQuestionModel::where('category_id',$Category_id)->where('sub_category_id',$SubCategory_id)->paginate(5);
+        else
+            $_res=QuizQuestionModel::where('category_id',$Category_id)->paginate(5);
         return response()->json($_res);
     }
     public function deleteQuestion($id)
@@ -82,8 +84,9 @@ class QuizQuestionsController
         else
             return response()->json(['response_code'=>202]);
     }
-    public function getAllCategoriesQuestion($id)
+    public function getAllCategoriesQuestion(Request $request)
     {
+        $id=$request->input("Category_id");
         $_res=QuizQuestionModel::where('category_id',$id)->paginate(5);
         return response()->json($_res);
         

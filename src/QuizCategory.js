@@ -11,7 +11,8 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Dialog from 'react-bootstrap-dialog';
-
+import 'jqwidgets-scripts/jqwidgets/styles/jqx.material.css';
+import JqxLoader from 'jqwidgets-scripts/jqwidgets-react-tsx/jqxloader';
 /*all css files requied by the component */
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
@@ -104,7 +105,7 @@ export default class QuizCategory extends Component {
             }.bind(this),
             error: function(response) {
                 console.log(response);
-            }
+            }.bind(this)
           }); 
       }
       handletext=(e)=>{
@@ -140,7 +141,7 @@ export default class QuizCategory extends Component {
           error: function(response) {
               console.log(response);
           
-        }
+        }.bind(this)
       })
     }
       //on click edit this function get called
@@ -180,7 +181,7 @@ export default class QuizCategory extends Component {
               }.bind(this),
               error: function(response) {
                   console.log(response);
-              }
+              }.bind(this)
               
           });
       }
@@ -223,7 +224,7 @@ export default class QuizCategory extends Component {
           }.bind(this),
           error: function(response) {
               console.log(response);
-          }
+          }.bind(this)
           
       });
       }
@@ -252,7 +253,7 @@ export default class QuizCategory extends Component {
           }.bind(this),
           error: function(response) {
               console.log(response);
-          }
+          }.bind(this)
           
       });
       }
@@ -272,7 +273,7 @@ export default class QuizCategory extends Component {
                   }.bind(this),
                   error: function(response) {
                       console.log(response);
-                  }
+                  }.bind(this)
                 
                 })
               this.gridApi.updateRowData({ remove: [selected]});
@@ -302,7 +303,7 @@ export default class QuizCategory extends Component {
         }.bind(this),
         error: function(response) {
             console.log(response);
-        }
+        }.bind(this)
       
       })
     this.gridApi.updateRowData({ remove: selectedData});
@@ -335,6 +336,8 @@ export default class QuizCategory extends Component {
                         Successfully updated Category!
                       </div>
                   </JqxNotification>
+                  <JqxLoader ref="loader"
+                    width={100} height={60} imagePosition={'top'} theme={'material'} isModal={true} />
                 <div className="top">
                   <h1>Categories</h1>
                 </div >

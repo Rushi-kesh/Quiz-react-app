@@ -22,7 +22,7 @@ $router->delete('/quiz-app/V1/admin/quiz/subcategories/delete/{id}','QuizSubCate
 $router->delete('/quiz-app/V1/admin/quiz/subcategories/delete','QuizSubCategoryController@deleteMultipleSubCategories');
 //--------Quiz Questions APIS----------
 $router->get('/quiz-app/V1/admin/quiz/questions','QuizQuestionsController@getQuestions');
-$router->get('/quiz-app/V1/admin/quiz/questions/{id}','QuizQuestionsController@getAllCategoriesQuestion');
+$router->get('/quiz-app/V1/admin/quiz/allCategoryQuestions','QuizQuestionsController@getAllCategoriesQuestion');
 $router->get('/quiz-app/V1/admin/quiz/questions/search','QuizQuestionsController@searchQuestions');
 $router->post('/quiz-app/V1/admin/quiz/questions/add','QuizQuestionsController@addQuestion');
 $router->put('/quiz-app/V1/admin/quiz/questions/update','QuizQuestionsController@updateQuestion');
