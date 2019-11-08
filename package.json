@@ -27,6 +27,8 @@
     "reactstrap": "^8.1.1",
     "style-loader": "^1.0.0"
   },
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" }
+  ,
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
